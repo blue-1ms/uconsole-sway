@@ -5,12 +5,6 @@ Last updated: 2026-06-14
 
 This Sway setup is installed alongside GNOME. Choose Sway from the login screen gear/session menu.
 
-## Maintenance Rule
-
-Whenever the Sway setup changes, update this note in the same turn. Future threads should read this file first before changing Sway, Waybar, Wofi, Foot, Mako, GTK, or related helper scripts.
-
-GitHub mirror rule: the Sway config and Markdown notes are mirrored to `blue-1ms/uconsole-sway` at `/home/mew/uconsole-sway`. Whenever the Sway setup changes, also update that repo's `README.md` when behavior or usage changes, refresh the copied config/notes, commit, and push to GitHub.
-
 ## Config Files
 
 - Sway: `~/.config/sway/config`
