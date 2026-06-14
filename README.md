@@ -82,6 +82,7 @@ Log out and choose the Sway session from the login screen.
 - `Super+Shift+t`: theme switcher
 - `Super+Shift+w`: wallpaper picker
 - `Super+Shift+c`: reload Sway
+- Physical power button: power menu in Sway
 
 See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup history and [notes/sway-uninstall-notes.md](notes/sway-uninstall-notes.md) for removal steps.
 
@@ -92,7 +93,7 @@ See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup hi
 - Waybar uses the simpler Option B status icon set: cogs for CPU, database for memory, adjust for brightness, softer volume plus the supported mute glyph, and outline notifications. The bar keeps status spacing tight and hides the power-menu button; use `Super+Shift+p` for power actions.
 - Wofi keeps app icons visible and uses its cache so frequent apps appear first.
 - Optional Arc/Materia/Papirus themes are available in the switcher when installed. Choosing them may make `snapd-desktop-integration` warn about missing theme snaps; switch to Yaru/Adwaita if you want a quiet login.
-- Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior. The physical power key is documented as a logind lock action, not suspend.
+- Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior. The physical power key is configured so logind ignores short presses and Sway opens the compact power menu.
 
 ## Credits
 

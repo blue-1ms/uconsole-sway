@@ -55,6 +55,7 @@ Key starting points:
 - `Super+Shift+w`: wallpaper picker
 - `Super+Shift+c`: reload config
 - `Super+Shift+e`: exit Sway
+- Physical power button: open power menu in Sway
 
 The bar uses FontAwesome icons for CPU, memory, battery, brightness, volume, and notifications. The app launcher shortcut is `Super+Space` or `Super+d`; there is intentionally no launcher or power-menu button on the bar. Network settings remain available with `Super+Shift+n`, the power menu remains `Super+Shift+p`, and volume opens `pavucontrol` when clicked.
 
@@ -129,8 +130,8 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Lock screen uses `~/.config/sway/lock.sh`, which reads the current Sway wallpaper and applies a styled teal unlock indicator. All lock paths should call this helper: `Super+Control+l`, idle lock, before-sleep lock, and power-menu lock.
 - Lock screen keypress strokes are bright green on a dim ring: `key-hl-color=87d99bff`, `ring-color=2b333bcc`, and `separator-color=101418ff`.
 - Suspend is disabled in the Sway power menu because this uConsole currently fails to wake reliably after suspend/black-screen behavior. Swayidle now locks only; the previous `output * power off` idle action was removed.
-- The power button is handled by systemd-logind, not Sway. Default logind behavior is `HandlePowerKey=poweroff`; recommended safe override until suspend is fixed is `HandlePowerKey=lock` plus `IdleAction=ignore` in `/etc/systemd/logind.conf.d/60-uconsole-power-key.conf`. Safe copy-paste command:
-  `printf '%s\n' '[Login]' 'HandlePowerKey=lock' 'HandlePowerKeyLongPress=poweroff' 'IdleAction=ignore' | sudo tee /etc/systemd/logind.conf.d/60-uconsole-power-key.conf`
+- The physical power button is routed to Sway for short presses. Default logind behavior is `HandlePowerKey=poweroff`; recommended override is `HandlePowerKey=ignore` plus `IdleAction=ignore` in `/etc/systemd/logind.conf.d/60-uconsole-power-key.conf`, while Sway binds `XF86PowerOff` to `~/.config/sway/power-menu.sh`. Safe copy-paste command:
+  `printf '%s\n' '[Login]' 'HandlePowerKey=ignore' 'HandlePowerKeyLongPress=poweroff' 'IdleAction=ignore' | sudo tee /etc/systemd/logind.conf.d/60-uconsole-power-key.conf`
 - Wallpaper picker is available at `Super+Shift+w` and persists wallpaper choices by updating the Sway config.
 - Shortcut sheet `~/.config/sway/shortcuts.txt` has been cleaned up for spelling, wording, and consistent labels.
 - Shortcut sheet opens fullscreen with `Super+/`; Sway rule for title `sway-shortcuts` is `fullscreen enable`.
