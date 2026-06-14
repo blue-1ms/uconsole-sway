@@ -7,7 +7,7 @@ Polished Sway configuration for the ClockworkPi uConsole on Ubuntu, tuned for th
 - Sway config with 1.0 output scale, larger terminal text, larger Wofi launcher, and compact workspace labels.
 - Waybar setup with integrated resource status, dynamic battery state, notification center, brightness, audio, clock, and tray modules.
 - Sway Notification Center styling flattened to avoid nested notification boxes.
-- Foot terminal, Wofi launcher, compact Wofi power menu, wallpaper picker, theme switcher, lock screen, clipboard picker, brightness helper, and window picker scripts.
+- Foot terminal, Wofi launcher, compact Wofi power menu, physical power-key handler, wallpaper picker, theme switcher, lock screen, clipboard picker, brightness helper, and window picker scripts.
 - GTK, Gammastep, Mako fallback, Wlogout legacy files, and setup/uninstall notes.
 
 ## Layout
@@ -82,7 +82,7 @@ Log out and choose the Sway session from the login screen.
 - `Super+Shift+t`: theme switcher
 - `Super+Shift+w`: wallpaper picker
 - `Super+Shift+c`: reload Sway
-- Physical power button: power menu in Sway
+- Physical power button: tap for power menu, hold 2s to shut down
 
 See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup history and [notes/sway-uninstall-notes.md](notes/sway-uninstall-notes.md) for removal steps.
 
@@ -90,10 +90,11 @@ See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup hi
 
 - The config intentionally uses `output * scale 1.0`; app and terminal readability are handled through font and UI sizing.
 - Brightness uses `config/sway/brightness.sh` because the uConsole panel exposes only a small number of hardware brightness levels.
+- Volume up is capped at 100% for both hardware volume keys and Waybar scroll.
 - Waybar uses the simpler Option B status icon set: cogs for CPU, database for memory, adjust for brightness, softer volume plus the supported mute glyph, and outline notifications. The bar keeps status spacing tight and hides the power-menu button; use `Super+Shift+p` for power actions.
 - Wofi keeps app icons visible and uses its cache so frequent apps appear first.
 - Optional Arc/Materia/Papirus themes are available in the switcher when installed. Choosing them may make `snapd-desktop-integration` warn about missing theme snaps; switch to Yaru/Adwaita if you want a quiet login.
-- Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior. The physical power key is configured so logind ignores short presses and Sway opens the compact power menu.
+- Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior. The physical power key is configured so logind ignores short presses and Sway handles tap versus hold through `power-key.sh`.
 
 ## Credits
 

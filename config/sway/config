@@ -19,6 +19,7 @@ set $browser firefox
 set $mail thunderbird
 set $settings gnome-control-center
 set $power_menu /home/mew/.config/sway/power-menu.sh
+set $power_key /home/mew/.config/sway/power-key.sh
 set $clipboard_menu /home/mew/.config/sway/clipboard-menu.sh
 set $gammastep_toggle /home/mew/.config/sway/gammastep-toggle.sh
 set $window_menu /home/mew/.config/sway/window-menu.sh
@@ -179,8 +180,10 @@ bindsym Shift+Print exec grimshot --notify save area
 bindsym $mod+Print exec grimshot --notify copy area
 
 ### Hardware keys
-bindsym XF86PowerOff exec $power_menu
-bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+# uConsole power key: Linux KEY_POWER / evdev 116 maps to XKB keycode 124.
+bindcode 124 exec $power_key press
+bindcode --release 124 exec $power_key release
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle

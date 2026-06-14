@@ -83,7 +83,7 @@ Screenshots
   Super+Print           Select area and copy screenshot with grimshot
 
 Hardware keys
-  Power button          Open power menu in Sway
+  Power button          Tap for power menu, hold 2s to shut down
   Volume keys           Raise, lower, or mute volume
   Mic mute key          Toggle microphone mute
   Media keys            Play/pause, next, previous, or stop via playerctl

@@ -19,7 +19,7 @@ This Sway setup is installed alongside GNOME. Choose Sway from the login screen 
 - GTK dark mode: `~/.config/gtk-3.0/settings.ini` and `~/.config/gtk-4.0/settings.ini`
 - Wlogout power menu: `~/.config/wlogout/layout` and `~/.config/wlogout/style.css`
 - Gammastep night color: `~/.config/gammastep/config.ini`
-- Helper scripts: `~/.config/sway/terminal.sh`, `~/.config/sway/power-menu.sh`, `~/.config/sway/clipboard-menu.sh`, `~/.config/sway/gammastep-toggle.sh`, `~/.config/sway/window-menu.sh`, `~/.config/sway/wallpaper-menu.sh`, `~/.config/sway/brightness.sh`, `~/.config/sway/theme-menu.sh`, `~/.config/sway/theme-apply.sh`, `~/.config/sway/lock.sh`, `~/.config/sway/notifications.sh`
+- Helper scripts: `~/.config/sway/terminal.sh`, `~/.config/sway/power-menu.sh`, `~/.config/sway/power-key.sh`, `~/.config/sway/clipboard-menu.sh`, `~/.config/sway/gammastep-toggle.sh`, `~/.config/sway/window-menu.sh`, `~/.config/sway/wallpaper-menu.sh`, `~/.config/sway/brightness.sh`, `~/.config/sway/theme-menu.sh`, `~/.config/sway/theme-apply.sh`, `~/.config/sway/lock.sh`, `~/.config/sway/notifications.sh`
 
 ## First Login
 
@@ -55,7 +55,7 @@ Key starting points:
 - `Super+Shift+w`: wallpaper picker
 - `Super+Shift+c`: reload config
 - `Super+Shift+e`: exit Sway
-- Physical power button: open power menu in Sway
+- Physical power button: tap for power menu, hold 2 seconds to shut down
 
 The bar uses FontAwesome icons for CPU, memory, battery, brightness, volume, and notifications. The app launcher shortcut is `Super+Space` or `Super+d`; there is intentionally no launcher or power-menu button on the bar. Network settings remain available with `Super+Shift+n`, the power menu remains `Super+Shift+p`, and volume opens `pavucontrol` when clicked.
 
@@ -115,6 +115,7 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Keyboard repeat is slowed for the uConsole keyboard with `repeat_delay 850` and `repeat_rate 10`. Backspace double-delete was later found to happen only in Codex, not in the terminal, so Sway repeat was restored from the temporary disabled setting.
 - If duplicate key events happen outside Codex, diagnose hardware key bounce with `wev` under Sway. Optional packages available for deeper keyboard diagnostics/filtering include `evtest`, `evemu-tools`, `input-remapper`, and `interception-tools`.
 - Brightness uses `~/.config/sway/brightness.sh` with device `backlight@0` and one hardware step per press. The panel exposes only 9 levels, so percentage steps like `5%+` can be too small to work visibly. Shortcuts are `Super+Control+Up` and `Super+Control+Down`; hardware brightness keys and Waybar brightness scrolling call the same helper.
+- Volume up is capped at 100% with `wpctl set-volume -l 1.0 ... 5%+` for both the hardware volume key and Waybar volume scroll. Plain `wpctl set-volume ... 5%+` can over-amplify above 100%, which is not wanted on this device.
 - If brightness still cannot be changed from inside Sway, check permissions. Ubuntu's `brightnessctl` package installs `/usr/lib/udev/rules.d/90-brightnessctl.rules`, which grants backlight write access to group `video`; user `mew` was not in group `video` when checked. The likely fix is `sudo usermod -aG video mew`, then log out and back in. If needed after that, trigger udev with `sudo udevadm trigger --subsystem-match=backlight`.
 - Codex attempted `sudo usermod -aG video mew`, but sudo could not prompt for the password in the managed command environment. The user must run the brightness permission commands in a real terminal.
 - Waybar uses the selected Option B status glyph set from FontAwesome/Noto: CPU ``, memory ``, battery ``..`` plus charging `` and plugged ``, brightness ``, volume ``, muted volume ``, and notifications ``. The originally proposed `` muted glyph is not covered by the installed FontAwesome package, so the supported `` glyph is used. The power-menu icon was removed from the bar; use `Super+Shift+p`.
@@ -130,7 +131,7 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Lock screen uses `~/.config/sway/lock.sh`, which reads the current Sway wallpaper and applies a styled teal unlock indicator. All lock paths should call this helper: `Super+Control+l`, idle lock, before-sleep lock, and power-menu lock.
 - Lock screen keypress strokes are bright green on a dim ring: `key-hl-color=87d99bff`, `ring-color=2b333bcc`, and `separator-color=101418ff`.
 - Suspend is disabled in the Sway power menu because this uConsole currently fails to wake reliably after suspend/black-screen behavior. Swayidle now locks only; the previous `output * power off` idle action was removed.
-- The physical power button is routed to Sway for short presses. Default logind behavior is `HandlePowerKey=poweroff`; recommended override is `HandlePowerKey=ignore` plus `IdleAction=ignore` in `/etc/systemd/logind.conf.d/60-uconsole-power-key.conf`, while Sway binds `XF86PowerOff` to `~/.config/sway/power-menu.sh`. Safe copy-paste command:
+- The physical power button is routed to Sway through `~/.config/sway/power-key.sh`. Default logind behavior is `HandlePowerKey=poweroff`; recommended override is `HandlePowerKey=ignore` plus `IdleAction=ignore` in `/etc/systemd/logind.conf.d/60-uconsole-power-key.conf`, while Sway binds raw keycode `124` press/release events to `power-key.sh`. Tapping the button opens the compact Wofi power menu; holding it for 2 seconds runs `systemctl poweroff` and suppresses the menu. Safe copy-paste command:
   `printf '%s\n' '[Login]' 'HandlePowerKey=ignore' 'HandlePowerKeyLongPress=poweroff' 'IdleAction=ignore' | sudo tee /etc/systemd/logind.conf.d/60-uconsole-power-key.conf`
 - Wallpaper picker is available at `Super+Shift+w` and persists wallpaper choices by updating the Sway config.
 - Shortcut sheet `~/.config/sway/shortcuts.txt` has been cleaned up for spelling, wording, and consistent labels.
