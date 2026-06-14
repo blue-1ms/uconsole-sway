@@ -1,6 +1,6 @@
 # uConsole Sway
 
-Polished Sway configuration for the ClockworkPi uConsole on Ubuntu, tuned for the 5 inch display while keeping GNOME installed as a fallback session.
+Polished Sway configuration for the ClockworkPi uConsole on Ubuntu, tuned for the 5 inch display while keeping GNOME installed as a fallback session. This setup was built on top of the uConsole Ubuntu image shared by Rex on the ClockworkPi forum.
 
 ## What Is Included
 
@@ -90,3 +90,7 @@ See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup hi
 - The config intentionally uses `output * scale 1.0`; app and terminal readability are handled through font and UI sizing.
 - Brightness uses `config/sway/brightness.sh` because the uConsole panel exposes only a small number of hardware brightness levels.
 - Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior.
+
+## Credits
+
+- Rex on the ClockworkPi forum for the uConsole Ubuntu image this setup builds on.
