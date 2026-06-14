@@ -89,6 +89,8 @@ See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup hi
 
 - The config intentionally uses `output * scale 1.0`; app and terminal readability are handled through font and UI sizing.
 - Brightness uses `config/sway/brightness.sh` because the uConsole panel exposes only a small number of hardware brightness levels.
+- Wofi keeps app icons visible and uses its cache so frequent apps appear first.
+- Optional Arc/Materia/Papirus themes are available in the switcher when installed. Choosing them may make `snapd-desktop-integration` warn about missing theme snaps; switch to Yaru/Adwaita if you want a quiet login.
 - Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior.
 
 ## Credits
