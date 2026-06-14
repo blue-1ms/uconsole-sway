@@ -1,0 +1,116 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 52,
+  "spacing": 5,
+  "margin": "0",
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "battery",
+    "backlight",
+    "pulseaudio",
+    "custom/notifications",
+    "clock",
+    "custom/power",
+    "tray"
+  ],
+  "sway/workspaces": {
+    "all-outputs": true,
+    "disable-scroll": true,
+    "format": "{name}",
+    "persistent-workspaces": {
+      "*": ["1 ", "2 ", "3 ", "4 ", "5 "]
+    }
+  },
+  "sway/window": {
+    "max-length": 22,
+    "tooltip": false
+  },
+  "cpu": {
+    "interval": 2,
+    "format": " {usage}%",
+    "states": {
+      "warning": 75,
+      "critical": 90
+    },
+    "on-click": "/home/mew/.config/sway/terminal.sh --title=system-monitor sh -lc 'htop'",
+    "tooltip": true,
+    "tooltip-format": "CPU {usage}%"
+  },
+  "memory": {
+    "interval": 3,
+    "format": " {percentage}%",
+    "states": {
+      "warning": 75,
+      "critical": 90
+    },
+    "on-click": "/home/mew/.config/sway/terminal.sh --title=disk-usage sh -lc 'df -h; printf \"\\nPress Enter to close...\"; read _'",
+    "tooltip": true,
+    "tooltip-format": "Memory {used:0.1f}G/{total:0.1f}G"
+  },
+  "battery": {
+    "bat": "axp20x-battery",
+    "adapter": "axp22x-ac",
+    "interval": 10,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-discharging": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-full": " {capacity}%",
+    "format-unknown": " {capacity}%",
+    "format-time": "{H}h {M}m",
+    "on-click": "gnome-control-center power",
+    "tooltip-format": "{capacity}% - {time}"
+  },
+  "backlight": {
+    "interval": 2,
+    "format": " {percent}%",
+    "scroll-step": 5,
+    "on-scroll-up": "/home/mew/.config/sway/brightness.sh up",
+    "on-scroll-down": "/home/mew/.config/sway/brightness.sh down",
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " muted",
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "tooltip": false
+  },
+  "custom/notifications": {
+    "format": "",
+    "on-click": "/home/mew/.config/sway/notifications.sh",
+    "on-click-right": "swaync-client -d -sw",
+    "tooltip": true,
+    "tooltip-format": "Notifications: Super+n"
+  },
+  "clock": {
+    "interval": 30,
+    "format": "{:%d %b %H:%M}",
+    "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "/home/mew/.config/sway/power-menu.sh",
+    "tooltip": true,
+    "tooltip-format": "Power menu: Super+Shift+p"
+  },
+  "tray": {
+    "spacing": 12
+  }
+}

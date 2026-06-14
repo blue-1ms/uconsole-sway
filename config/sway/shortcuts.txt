@@ -1,0 +1,93 @@
+Sway Shortcuts
+
+Daily keys
+  Super+Enter           Open terminal
+  Super+Shift+Enter     Open fullscreen terminal
+  Super+Space           Open app launcher
+  Super+d               Open app launcher
+  Super+Tab             Show open windows and switch to one
+  Super+Shift+Tab       Show open windows and choose one to close
+  Super+/               Show this shortcut sheet
+  Super+c               Open clipboard history
+  Super+n               Open notification center
+  Super+Control+l       Lock screen
+  Super+Control+Up      Increase screen brightness
+  Super+Control+Down    Decrease screen brightness
+  Super+Shift+p         Open power menu
+  Super+Shift+q         Close focused window
+  Super+Shift+c         Reload Sway config
+  Super+Shift+e         Exit Sway session
+
+Apps and settings
+  Super+Shift+x         Open system monitor
+  Super+Shift+f         Open file manager
+  Super+Shift+v         Open text editor
+  Super+Shift+b         Open browser
+  Super+Shift+m         Open mail
+  Super+Shift+s         Open settings
+  Super+Shift+n         Open network connections
+  Super+Shift+a         Open audio mixer
+  Super+Shift+o         Open Bluetooth manager
+  Super+Shift+d         Open display settings
+  Super+Shift+g         Toggle night color
+  Super+Shift+t         Open theme switcher
+  Super+Shift+w         Pick and apply wallpaper
+  Super+Escape          Force close a clicked window
+
+Customization files
+  Sway config           ~/.config/sway/config
+  Bar theme             ~/.config/waybar/style.css
+  App launcher theme    ~/.config/wofi/style.css
+  Power menu theme      ~/.config/wofi/style.css
+  GTK theme settings    ~/.config/sway/config, gsettings section
+
+Focus and movement
+  Super+h/j/k/l         Focus left/down/up/right
+  Super+Arrow           Focus left/down/up/right
+  Super+Shift+h/j/k/l   Move window left/down/up/right
+  Super+Shift+Arrow     Move window left/down/up/right
+
+Workspaces
+  Super+1               Terminal workspace
+  Super+2               Browser workspace
+  Super+3               Files workspace
+  Super+4               Mail workspace
+  Super+5               Tools workspace
+  Super+6..0            Switch to workspace 6..10
+  Super+Shift+1..0      Move window to matching workspace
+  Super+Control+Tab     Toggle previous workspace
+
+Layout
+  Super+b               Split horizontally
+  Super+v               Split vertically
+  Super+s               Use stacking layout
+  Super+w               Use tabbed layout
+  Super+e               Toggle split layout
+  Super+f               Toggle fullscreen
+  Super+Shift+Space     Toggle floating mode
+  Super+Control+Space   Focus between tiled and floating windows
+  Super+a               Focus parent container
+
+Scratchpad
+  Super+Shift+-         Send window to scratchpad
+  Super+-               Show or cycle scratchpad windows
+
+Resize
+  Super+r               Enter resize mode
+  h/j/k/l or arrows     Resize focused window
+  Enter or Escape       Leave resize mode
+
+Screenshots
+  Print                 Save full-screen screenshot with grimshot
+  Shift+Print           Select area and save screenshot with grimshot
+  Super+Print           Select area and copy screenshot with grimshot
+
+Hardware keys
+  Volume keys           Raise, lower, or mute volume
+  Mic mute key          Toggle microphone mute
+  Media keys            Play/pause, next, previous, or stop via playerctl
+  Brightness keys       Raise or lower brightness if exposed by keyboard
+
+Mouse
+  Hold Super+left drag  Move floating window
+  Hold Super+right drag Resize floating window

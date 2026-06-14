@@ -1,0 +1,21 @@
+font=Ubuntu Sans 12
+background-color=#101418f2
+text-color=#f2f4f5ff
+border-color=#2c7a72ff
+border-size=2
+border-radius=8
+padding=12
+margin=8
+width=360
+height=140
+anchor=top-right
+default-timeout=6000
+max-visible=4
+sort=-time
+
+[urgency=low]
+border-color=#56616aff
+
+[urgency=high]
+border-color=#e05f65ff
+default-timeout=0

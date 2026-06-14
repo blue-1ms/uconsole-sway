@@ -1,0 +1,32 @@
+{
+    "label" : "lock",
+    "action" : "/home/mew/.config/sway/lock.sh",
+    "text" : "Lock",
+    "keybind" : "l",
+    "height" : 0.86,
+    "width" : 0.5
+}
+{
+    "label" : "logout",
+    "action" : "swaymsg exit",
+    "text" : "Exit",
+    "keybind" : "e",
+    "height" : 0.86,
+    "width" : 0.5
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Reboot",
+    "keybind" : "r",
+    "height" : 0.86,
+    "width" : 0.5
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "Power",
+    "keybind" : "s",
+    "height" : 0.86,
+    "width" : 0.5
+}

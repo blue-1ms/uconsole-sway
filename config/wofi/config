@@ -1,0 +1,13 @@
+show=drun
+width=88%
+height=82%
+prompt=Run
+term=foot
+allow_images=true
+image_size=46
+insensitive=true
+matching=contains
+sort_order=alphabetical
+location=center
+no_actions=true
+gtk_dark=true

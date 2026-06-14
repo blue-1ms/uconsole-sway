@@ -1,0 +1,68 @@
+* {
+    background-image: none;
+    font-family: "Ubuntu Sans", "Noto Sans", sans-serif;
+}
+
+window {
+    background-color: rgba(10, 13, 16, 0.72);
+}
+
+button {
+    color: #f2f4f5;
+    background-color: rgba(23, 29, 35, 0.88);
+    border: 1px solid rgba(158, 231, 223, 0.20);
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center 35%;
+    background-size: 34%;
+    margin: 3px;
+    padding-top: 72px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+button:focus,
+button:active,
+button:hover {
+    color: #ffffff;
+    background-color: #2c7a72;
+    border-color: #67d1c8;
+    outline-style: none;
+}
+
+#lock,
+#logout,
+#reboot,
+#shutdown {
+    background-color: rgba(23, 29, 35, 0.88);
+}
+
+#lock {
+    background-image: image(url("/usr/share/wlogout/assets/lock.svg"));
+}
+
+#logout {
+    background-image: image(url("/usr/share/wlogout/assets/logout.svg"));
+}
+
+#reboot {
+    background-image: image(url("/usr/share/wlogout/assets/reboot.svg"));
+}
+
+#shutdown {
+    background-image: image(url("/usr/share/wlogout/assets/shutdown.svg"));
+}
+
+#reboot:focus,
+#reboot:active,
+#reboot:hover {
+    background-color: #5f6f2a;
+    border-color: #d9e86f;
+}
+
+#shutdown:focus,
+#shutdown:active,
+#shutdown:hover {
+    background-color: #8f2432;
+    border-color: #ff7b86;
+}
