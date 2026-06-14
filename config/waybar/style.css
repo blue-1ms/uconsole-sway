@@ -47,10 +47,9 @@ window#waybar {
 #pulseaudio,
 #custom-notifications,
 #clock,
-#custom-power,
 #tray {
-  padding: 0 8px;
-  margin: 0 1px;
+  padding: 0 5px;
+  margin: 0;
   border-radius: 0;
   background: transparent;
 }
@@ -75,8 +74,7 @@ window#waybar {
   color: #ff6b6b;
 }
 
-#custom-notifications,
-#custom-power {
+#custom-notifications {
   color: #9ee7df;
   font-size: 20px;
 }
@@ -100,6 +98,6 @@ window#waybar {
 }
 
 #clock {
-  margin-right: 2px;
+  margin-right: 0;
   color: #ffffff;
 }

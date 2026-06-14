@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "height": 52,
-  "spacing": 5,
+  "spacing": 2,
   "margin": "0",
   "modules-left": [
     "sway/workspaces",
@@ -19,7 +19,6 @@
     "pulseaudio",
     "custom/notifications",
     "clock",
-    "custom/power",
     "tray"
   ],
   "sway/workspaces": {
@@ -104,13 +103,7 @@
     "format": "{:%d %b %H:%M}",
     "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
   },
-  "custom/power": {
-    "format": "⏻",
-    "on-click": "/home/mew/.config/sway/power-menu.sh",
-    "tooltip": true,
-    "tooltip-format": "Power menu: Super+Shift+p"
-  },
   "tray": {
-    "spacing": 12
+    "spacing": 6
   }
 }

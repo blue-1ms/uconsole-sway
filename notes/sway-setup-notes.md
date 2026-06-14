@@ -26,8 +26,8 @@ This Sway setup is installed alongside GNOME. Choose Sway from the login screen 
 The bar should appear at the top with:
 
 - Workspaces and focused window title
-- CPU, memory, battery, brightness when available, volume, notifications, clock, power menu, and tray
-- No taskbar launcher icon, network module, or shortcut-help icon; those remain available by keyboard shortcut
+- CPU, memory, battery, brightness when available, volume, notifications, clock, and tray
+- No taskbar launcher icon, network module, shortcut-help icon, or power-menu icon; those remain available by keyboard shortcut
 
 Key starting points:
 
@@ -56,7 +56,7 @@ Key starting points:
 - `Super+Shift+c`: reload config
 - `Super+Shift+e`: exit Sway
 
-The bar uses FontAwesome icons for CPU, memory, battery, brightness, volume, notifications, and power. The app launcher shortcut is `Super+Space` or `Super+d`; there is intentionally no launcher button on the bar. Network settings remain available with `Super+Shift+n`, and volume opens `pavucontrol` when clicked.
+The bar uses FontAwesome icons for CPU, memory, battery, brightness, volume, and notifications. The app launcher shortcut is `Super+Space` or `Super+d`; there is intentionally no launcher or power-menu button on the bar. Network settings remain available with `Super+Shift+n`, the power menu remains `Super+Shift+p`, and volume opens `pavucontrol` when clicked.
 
 ## Workspaces
 
@@ -116,10 +116,10 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Brightness uses `~/.config/sway/brightness.sh` with device `backlight@0` and one hardware step per press. The panel exposes only 9 levels, so percentage steps like `5%+` can be too small to work visibly. Shortcuts are `Super+Control+Up` and `Super+Control+Down`; hardware brightness keys and Waybar brightness scrolling call the same helper.
 - If brightness still cannot be changed from inside Sway, check permissions. Ubuntu's `brightnessctl` package installs `/usr/lib/udev/rules.d/90-brightnessctl.rules`, which grants backlight write access to group `video`; user `mew` was not in group `video` when checked. The likely fix is `sudo usermod -aG video mew`, then log out and back in. If needed after that, trigger udev with `sudo udevadm trigger --subsystem-match=backlight`.
 - Codex attempted `sudo usermod -aG video mew`, but sudo could not prompt for the password in the managed command environment. The user must run the brightness permission commands in a real terminal.
-- Waybar uses the selected Option B status glyph set from FontAwesome/Noto: CPU ``, memory ``, battery ``..`` plus charging `` and plugged ``, brightness ``, volume ``, muted volume ``, notifications ``, and power `⏻`. The originally proposed `` muted glyph is not covered by the installed FontAwesome package, so the supported `` glyph is used.
+- Waybar uses the selected Option B status glyph set from FontAwesome/Noto: CPU ``, memory ``, battery ``..`` plus charging `` and plugged ``, brightness ``, volume ``, muted volume ``, and notifications ``. The originally proposed `` muted glyph is not covered by the installed FontAwesome package, so the supported `` glyph is used. The power-menu icon was removed from the bar; use `Super+Shift+p`.
 - Waybar is enlarged for the 5 inch uConsole display: `height=52`, global `font-size=17px`, key icons `20px`, and tighter window title length so the right-side resource modules still fit.
-- Waybar module blocks/pill backgrounds were removed for a more integrated bar. Modules are transparent; active and urgent workspaces use bottom underline accents instead of filled blocks.
-- Waybar no longer shows the launcher button, Wi-Fi/network module, or shortcut-help icon to reduce taskbar clutter. App launch remains `Super+Space` or `Super+d`, the shortcut sheet remains `Super+/`, and network settings remain `Super+Shift+n`.
+- Waybar module blocks/pill backgrounds were removed for a more integrated bar. Modules are transparent; active and urgent workspaces use bottom underline accents instead of filled blocks. Right-side status spacing is tightened with Waybar `spacing=2`, module padding `0 5px`, and tray spacing `6`.
+- Waybar no longer shows the launcher button, Wi-Fi/network module, shortcut-help icon, or power-menu icon to reduce taskbar clutter. App launch remains `Super+Space` or `Super+d`, the shortcut sheet remains `Super+/`, network settings remain `Super+Shift+n`, and the power menu remains `Super+Shift+p`.
 - Waybar click actions: CPU opens `htop`; memory/RAM module opens `df -h` in a terminal for disk usage.
 - Sway Notification Center (`sway-notification-center` 0.9.0-1build2) is installed and integrated as the preferred notification daemon. Sway starts `swaync` if available and falls back to `mako`; `Super+n` and the Waybar bell open it. Sway reload now restarts `swaync` so CSS changes apply with `Super+Shift+c`. Its CSS is intentionally flat/integrated: outer notification rows are transparent, and each notification uses one subtle surface with a thin teal accent instead of nested boxes.
 - Wofi app launcher is enlarged for the 5 inch display: `width=88%`, `height=82%`, `font-size=18px`, and app icons `image_size=46`. Search is explicitly case-insensitive (`insensitive=true`) and uses predictable `matching=contains`. Wofi caching is enabled through `/home/mew/.cache/wofi-drun`, and `sort_order=default` keeps cached/frequent entries first. `allow_images=true` keeps app icons visible; this can make icon-theme loading visible when the launcher opens.
