@@ -36,7 +36,7 @@
   },
   "cpu": {
     "interval": 2,
-    "format": " {usage}%",
+    "format": " {usage}%",
     "states": {
       "warning": 75,
       "critical": 90
@@ -47,7 +47,7 @@
   },
   "memory": {
     "interval": 3,
-    "format": " {percentage}%",
+    "format": " {percentage}%",
     "states": {
       "warning": 75,
       "critical": 90
@@ -77,14 +77,14 @@
   },
   "backlight": {
     "interval": 2,
-    "format": " {percent}%",
+    "format": " {percent}%",
     "scroll-step": 5,
     "on-scroll-up": "/home/mew/.config/sway/brightness.sh up",
     "on-scroll-down": "/home/mew/.config/sway/brightness.sh down",
     "tooltip": false
   },
   "pulseaudio": {
-    "format": " {volume}%",
+    "format": " {volume}%",
     "format-muted": " muted",
     "on-click": "pavucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
@@ -93,7 +93,7 @@
     "tooltip": false
   },
   "custom/notifications": {
-    "format": "",
+    "format": "",
     "on-click": "/home/mew/.config/sway/notifications.sh",
     "on-click-right": "swaync-client -d -sw",
     "tooltip": true,
@@ -105,7 +105,7 @@
     "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
   },
   "custom/power": {
-    "format": "",
+    "format": "⏻",
     "on-click": "/home/mew/.config/sway/power-menu.sh",
     "tooltip": true,
     "tooltip-format": "Power menu: Super+Shift+p"
