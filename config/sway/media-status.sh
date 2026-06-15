@@ -8,7 +8,15 @@ if ! command -v playerctl >/dev/null 2>&1; then
 fi
 
 status="$(playerctl status 2>/dev/null || true)"
-max_chars="${MEDIA_STATUS_MAX_CHARS:-44}"
+max_chars="${MEDIA_STATUS_MAX_CHARS:-40}"
+case "$max_chars" in
+    *[!0-9]*|"")
+        max_chars=40
+        ;;
+esac
+if [ "$max_chars" -lt 4 ]; then
+    max_chars=4
+fi
 stale_after="${MEDIA_STATUS_STALE_AFTER:-600}"
 state_dir="${MEDIA_STATUS_STATE_DIR:-${XDG_RUNTIME_DIR:-$HOME/.cache}/sway}"
 last_playing_file="$state_dir/media-last-playing"

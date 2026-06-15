@@ -42,7 +42,7 @@
     },
     "on-click": "/home/mew/.config/sway/terminal.sh --title=system-monitor sh -lc 'htop'",
     "tooltip": true,
-    "tooltip-format": "CPU {usage}%"
+    "tooltip-format": "CPU {usage}% | Click: htop"
   },
   "memory": {
     "interval": 3,
@@ -53,7 +53,7 @@
     },
     "on-click": "/home/mew/.config/sway/terminal.sh --title=disk-usage sh -lc 'df -h; printf \"\\nPress Enter to close...\"; read _'",
     "tooltip": true,
-    "tooltip-format": "Memory {used:0.1f}G/{total:0.1f}G"
+    "tooltip-format": "RAM {used:0.1f}G/{total:0.1f}G ({percentage}%) | Click: disk usage"
   },
   "battery": {
     "bat": "axp20x-battery",
@@ -72,15 +72,23 @@
     "format-unknown": " {capacity}%",
     "format-time": "{H}h {M}m",
     "on-click": "gnome-control-center power",
-    "tooltip-format": "{capacity}% - {time}"
+    "tooltip-format": "Battery: {capacity}%",
+    "tooltip-format-discharging": "On battery: {capacity}%",
+    "tooltip-format-charging": "Charging: {capacity}%",
+    "tooltip-format-plugged": "Plugged in: {capacity}%",
+    "tooltip-format-not-charging": "Plugged in: {capacity}%",
+    "tooltip-format-full": "Full: {capacity}%",
+    "tooltip-format-unknown": "Battery: {capacity}%"
   },
   "backlight": {
     "interval": 2,
     "format": " {percent}%",
     "scroll-step": 5,
+    "on-click": "/home/mew/.config/sway/brightness-menu.sh",
     "on-scroll-up": "/home/mew/.config/sway/brightness.sh up",
     "on-scroll-down": "/home/mew/.config/sway/brightness.sh down",
-    "tooltip": false
+    "tooltip": true,
+    "tooltip-format": "Brightness {percent}% | Click: levels | Scroll: adjust"
   },
   "pulseaudio": {
     "format": " {volume}%",
@@ -89,13 +97,16 @@
     "on-click-right": "/home/mew/.config/sway/volume.sh mute",
     "on-scroll-up": "/home/mew/.config/sway/volume.sh up",
     "on-scroll-down": "/home/mew/.config/sway/volume.sh down",
-    "tooltip": false
+    "tooltip": true,
+    "tooltip-format": "{desc}: {volume}% | Click: mixer | Right-click: mute | Scroll: adjust",
+    "tooltip-format-muted": "{desc}: muted | Click: mixer | Right-click: unmute"
   },
   "custom/media": {
-    "exec": "/home/mew/.config/sway/media-status.sh",
-    "interval": 5,
+    "exec": "/home/mew/.config/sway/media-status-loop.sh",
+    "restart-interval": 2,
     "return-type": "json",
     "format": "{}",
+    "escape": true,
     "on-click": "playerctl play-pause",
     "on-click-right": "/home/mew/.config/sway/terminal.sh --fullscreen --title=shairport-tui /home/mew/bin/shairport-tui",
     "tooltip": true
@@ -103,7 +114,7 @@
   "clock": {
     "interval": 30,
     "format": "{:%d %b %H:%M}",
-    "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+    "tooltip-format": "{:%A, %d %B %Y %H:%M:%S}"
   },
   "tray": {
     "spacing": 6

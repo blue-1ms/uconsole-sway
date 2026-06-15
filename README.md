@@ -7,7 +7,7 @@ Polished Sway configuration for the ClockworkPi uConsole on Ubuntu, tuned for th
 - Sway config with 1.0 output scale, larger terminal text, larger Wofi launcher, and compact workspace labels.
 - Waybar setup with integrated resource status, dynamic battery state, brightness, audio, clock, and tray modules.
 - Sway Notification Center styling flattened to avoid nested notification boxes.
-- Foot terminal, Wofi launcher/run prompt, compact Wofi power menu, physical power-key handler, wallpaper picker, theme switcher, lock screen, clipboard picker, scratchpad terminal, brightness/volume helpers, Waybar media status, and window picker scripts.
+- Foot terminal, Wofi launcher/run prompt, compact Wofi power menu, physical power-key handler, wallpaper picker, theme switcher, lock screen, clipboard picker, scratchpad terminal, brightness/volume helpers, Wofi brightness picker, Waybar media status, and window picker scripts.
 - GTK, Gammastep, Mako fallback, Wlogout legacy files, and setup/uninstall notes.
 
 ## Layout
@@ -93,12 +93,12 @@ See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup hi
 
 - The config intentionally uses `output * scale 1.0`; app and terminal readability are handled through font and UI sizing.
 - Foot launches standalone terminals with `term=foot`; the terminal wrapper disables Codex keyboard enhancement to avoid duplicate key behavior.
-- Brightness uses `config/sway/brightness.sh` because the uConsole panel exposes only a small number of hardware brightness levels.
+- Brightness uses `config/sway/brightness.sh` because the uConsole panel exposes only a small number of hardware brightness levels; clicking the Waybar brightness module opens a compact Wofi picker for fixed brightness levels.
 - Volume up is capped at 100% for both hardware volume keys and Waybar scroll.
-- Waybar uses the simpler Option B status icon set: cogs for CPU, database for memory, adjust for brightness, and softer volume plus the supported mute glyph. The bar keeps status spacing tight and hides the notification-center and power-menu buttons; use `Super+n` for notifications and `Super+Shift+p` for power actions.
+- Waybar uses the simpler Option B status icon set: cogs for CPU, database for memory, adjust for brightness, and softer volume plus the supported mute glyph. The bar keeps status spacing tight, uses concise hover text across status modules, and hides the notification-center and power-menu buttons; use `Super+n` for notifications and `Super+Shift+p` for power actions.
 - Sway Notification Center opens with `Super+n`, without a Waybar icon, and its panel is flush with the top edge.
 - Wofi keeps app icons visible and uses its cache so frequent apps appear first.
-- Waybar includes adaptive playerctl media status: playing, paused, and stopped have distinct icons; artist-first track text is bounded to 44 characters by default and expires after 10 minutes without active playback.
+- Waybar includes fast playerctl media status: playing, paused, and stopped have distinct icons; artist-first track text updates through a continuous 1-second helper loop, escapes markup-sensitive track text, is bounded to 40 characters, and expires after 10 minutes without active playback.
 - Hardware and Waybar volume controls use `config/sway/volume.sh` for capped volume-up behavior and notification feedback.
 - `Super+Shift+Space` opens the Wofi run prompt; floating toggle is `Super+Control+f`.
 - `Super+grave` toggles a floating scratchpad Foot terminal.
