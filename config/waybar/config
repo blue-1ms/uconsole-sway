@@ -17,6 +17,7 @@
     "battery",
     "backlight",
     "pulseaudio",
+    "custom/media",
     "custom/notifications",
     "clock",
     "tray"
@@ -26,7 +27,7 @@
     "disable-scroll": true,
     "format": "{name}",
     "persistent-workspaces": {
-      "*": ["1 ", "2 ", "3 ", "4 ", "5 "]
+      "*": ["1 ", "2 ", "3 ", "4 ", "5 ", "6 "]
     }
   },
   "sway/window": {
@@ -86,10 +87,19 @@
     "format": " {volume}%",
     "format-muted": " muted",
     "on-click": "pavucontrol",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "on-click-right": "/home/mew/.config/sway/volume.sh mute",
+    "on-scroll-up": "/home/mew/.config/sway/volume.sh up",
+    "on-scroll-down": "/home/mew/.config/sway/volume.sh down",
     "tooltip": false
+  },
+  "custom/media": {
+    "exec": "/home/mew/.config/sway/media-status.sh",
+    "interval": 5,
+    "return-type": "json",
+    "format": "{}",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "/home/mew/.config/sway/terminal.sh --fullscreen --title=shairport-tui /home/mew/bin/shairport-tui",
+    "tooltip": true
   },
   "custom/notifications": {
     "format": "",

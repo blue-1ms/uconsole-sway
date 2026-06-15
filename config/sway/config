@@ -11,6 +11,7 @@ set $ws2 "2 "
 set $ws3 "3 "
 set $ws4 "4 "
 set $ws5 "5 "
+set $ws6 "6 "
 set $term /home/mew/.config/sway/terminal.sh
 set $menu wofi --show drun --insensitive --matching contains
 set $files thunar
@@ -25,9 +26,13 @@ set $gammastep_toggle /home/mew/.config/sway/gammastep-toggle.sh
 set $window_menu /home/mew/.config/sway/window-menu.sh
 set $wallpaper_menu /home/mew/.config/sway/wallpaper-menu.sh
 set $brightness_control /home/mew/.config/sway/brightness.sh
+set $volume_control /home/mew/.config/sway/volume.sh
 set $theme_menu /home/mew/.config/sway/theme-menu.sh
 set $lock /home/mew/.config/sway/lock.sh
 set $notifications /home/mew/.config/sway/notifications.sh
+set $shairport_tui /home/mew/bin/shairport-tui
+set $run_menu wofi --show run --insensitive --matching contains
+set $scratchpad_terminal /home/mew/.config/sway/scratchpad-terminal.sh
 
 include /etc/sway/config-vars.d/*
 
@@ -71,12 +76,11 @@ seat * xcursor_theme Yaru 36
 ### Session services
 exec_always sh -c 'systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK DISPLAY; dbus-update-activation-environment --systemd WAYLAND_DISPLAY SWAYSOCK DISPLAY XDG_CURRENT_DESKTOP=sway'
 exec_always /home/mew/.config/sway/theme-apply.sh
-exec_always sh -c 'pgrep -x foot >/dev/null || foot --server'
+# Launch standalone foot terminals via terminal.sh instead of a shared foot server.
 exec_always sh -c 'pkill waybar 2>/dev/null; waybar'
 exec_always sh -c 'if command -v nm-applet >/dev/null && ! pgrep -x nm-applet >/dev/null; then nm-applet --indicator; fi'
 exec_always sh -c 'if command -v blueman-applet >/dev/null && ! pgrep -x blueman-applet >/dev/null; then blueman-applet; fi'
 exec_always sh -c 'if command -v udiskie >/dev/null && ! pgrep -x udiskie >/dev/null; then udiskie --tray --notify; fi'
-exec_always sh -c 'if command -v gammastep >/dev/null && ! pgrep -x gammastep >/dev/null; then gammastep; fi'
 exec_always sh -c 'if command -v wl-paste >/dev/null && command -v cliphist >/dev/null && ! pgrep -f "wl-paste --type text --watch cliphist store" >/dev/null; then wl-paste --type text --watch cliphist store & fi'
 exec_always sh -c 'if command -v wl-paste >/dev/null && command -v cliphist >/dev/null && ! pgrep -f "wl-paste --type image --watch cliphist store" >/dev/null; then wl-paste --type image --watch cliphist store & fi'
 exec_always sh -c 'if command -v swaync >/dev/null; then pkill mako 2>/dev/null; pkill swaync 2>/dev/null; swaync; elif command -v mako >/dev/null && ! pgrep -x mako >/dev/null; then mako; fi'
@@ -87,7 +91,9 @@ exec swayidle -w \
 ### Launchers and session controls
 bindsym $mod+Return exec $term
 bindsym $mod+space exec $menu
+bindsym $mod+Shift+space exec $run_menu
 bindsym $mod+d exec $menu
+bindsym $mod+grave exec $scratchpad_terminal
 bindsym $mod+Tab exec $window_menu focus
 bindsym $mod+Shift+Tab exec $window_menu kill
 bindsym $mod+slash exec $term --fullscreen --title=sway-shortcuts sh -lc 'less "$HOME/.config/sway/shortcuts.txt"'
@@ -104,6 +110,7 @@ bindsym $mod+Shift+m exec $mail
 bindsym $mod+Shift+s exec $settings
 bindsym $mod+Shift+n exec nm-connection-editor
 bindsym $mod+Shift+a exec pavucontrol
+bindsym $mod+Shift+r exec $term --fullscreen --title=shairport-tui $shairport_tui
 bindsym $mod+Shift+o exec blueman-manager
 bindsym $mod+Shift+d exec wdisplays
 bindsym $mod+Shift+g exec $gammastep_toggle
@@ -141,7 +148,7 @@ bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number 6
+bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
@@ -153,7 +160,7 @@ bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+6 move container to workspace number $ws6
 bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
@@ -166,7 +173,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Control+f floating toggle
 bindsym $mod+Control+space focus mode_toggle
 bindsym $mod+a focus parent
 
@@ -183,10 +190,10 @@ bindsym $mod+Print exec grimshot --notify copy area
 # uConsole power key: Linux KEY_POWER / evdev 116 maps to XKB keycode 124.
 bindcode 124 exec $power_key press
 bindcode --release 124 exec $power_key release
-bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86AudioRaiseVolume exec $volume_control up
+bindsym XF86AudioLowerVolume exec $volume_control down
+bindsym XF86AudioMute exec $volume_control mute
+bindsym XF86AudioMicMute exec $volume_control mic-mute
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
@@ -211,6 +218,7 @@ bindsym $mod+r mode "resize"
 
 ### Window rules
 for_window [title="sway-shortcuts"] fullscreen enable
+for_window [title="sway-scratchpad-terminal"] floating enable, resize set width 680 px height 520 px, move position center, move scratchpad, scratchpad show
 for_window [app_id="wdisplays"] floating enable
 for_window [app_id="wlogout"] fullscreen enable
 for_window [app_id="pavucontrol"] floating enable

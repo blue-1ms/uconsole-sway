@@ -1,3 +1,4 @@
 #!/bin/sh
 
-exec footclient "$@" 2>/dev/null || exec foot "$@"
+export CODEX_TUI_DISABLE_KEYBOARD_ENHANCEMENT=1
+exec foot --term=foot "$@"

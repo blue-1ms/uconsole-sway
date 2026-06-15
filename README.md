@@ -7,7 +7,7 @@ Polished Sway configuration for the ClockworkPi uConsole on Ubuntu, tuned for th
 - Sway config with 1.0 output scale, larger terminal text, larger Wofi launcher, and compact workspace labels.
 - Waybar setup with integrated resource status, dynamic battery state, notification center, brightness, audio, clock, and tray modules.
 - Sway Notification Center styling flattened to avoid nested notification boxes.
-- Foot terminal, Wofi launcher, compact Wofi power menu, physical power-key handler, wallpaper picker, theme switcher, lock screen, clipboard picker, brightness helper, and window picker scripts.
+- Foot terminal, Wofi launcher/run prompt, compact Wofi power menu, physical power-key handler, wallpaper picker, theme switcher, lock screen, clipboard picker, scratchpad terminal, brightness/volume helpers, Waybar media status, and window picker scripts.
 - GTK, Gammastep, Mako fallback, Wlogout legacy files, and setup/uninstall notes.
 
 ## Layout
@@ -72,13 +72,16 @@ Log out and choose the Sway session from the login screen.
 
 - `Super+Enter`: terminal
 - `Super+Shift+Enter`: fullscreen terminal
+- `Super+grave`: scratchpad terminal
 - `Super+Space` or `Super+d`: app launcher
+- `Super+Shift+Space`: run prompt
 - `Super+Tab`: window picker
 - `Super+Shift+Tab`: choose a window to close
 - `Super+/`: fullscreen shortcut sheet
 - `Super+n`: notification center
 - `Super+Control+l`: lock screen
 - `Super+Shift+p`: power menu
+- `Super+Shift+r`: Shairport TUI
 - `Super+Shift+t`: theme switcher
 - `Super+Shift+w`: wallpaper picker
 - `Super+Shift+c`: reload Sway
@@ -89,10 +92,18 @@ See [notes/sway-setup-notes.md](notes/sway-setup-notes.md) for the full setup hi
 ## Device Notes
 
 - The config intentionally uses `output * scale 1.0`; app and terminal readability are handled through font and UI sizing.
+- Foot launches standalone terminals with `term=foot`; the terminal wrapper disables Codex keyboard enhancement to avoid duplicate key behavior.
 - Brightness uses `config/sway/brightness.sh` because the uConsole panel exposes only a small number of hardware brightness levels.
 - Volume up is capped at 100% for both hardware volume keys and Waybar scroll.
 - Waybar uses the simpler Option B status icon set: cogs for CPU, database for memory, adjust for brightness, softer volume plus the supported mute glyph, and outline notifications. The bar keeps status spacing tight and hides the power-menu button; use `Super+Shift+p` for power actions.
 - Wofi keeps app icons visible and uses its cache so frequent apps appear first.
+- Waybar includes adaptive playerctl media status: playing, paused, and stopped have distinct icons; track text is bounded and expires after 10 minutes without active playback.
+- Hardware and Waybar volume controls use `config/sway/volume.sh` for capped volume-up behavior and notification feedback.
+- `Super+Shift+Space` opens the Wofi run prompt; floating toggle is `Super+Control+f`.
+- `Super+grave` toggles a floating scratchpad Foot terminal.
+- Workspace 6 is the music workspace, labeled `6 ` in Sway and Waybar.
+- `Super+Shift+r` opens `/home/mew/bin/shairport-tui` in a fullscreen Foot terminal on the current workspace.
+- Gammastep remains installed and can be toggled with `Super+Shift+g`, but it no longer autostarts because this display path currently reports no gamma adjustment support.
 - Optional Arc/Materia/Papirus themes are available in the switcher when installed. Choosing them may make `snapd-desktop-integration` warn about missing theme snaps; switch to Yaru/Adwaita if you want a quiet login.
 - Suspend is not exposed in the power menu because this device currently has wake issues after suspend/black-screen behavior. The physical power key is configured so logind ignores short presses and Sway handles tap versus hold through `power-key.sh`.
 

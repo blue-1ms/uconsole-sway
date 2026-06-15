@@ -33,8 +33,10 @@ Key starting points:
 
 - `Super+Enter`: terminal
 - `Super+Shift+Enter`: fullscreen terminal
+- `Super+grave`: scratchpad terminal
 - `Super+Space`: app launcher
 - `Super+d`: app launcher too
+- `Super+Shift+Space`: run prompt
 - `Super+Tab`: show open windows and switch to one
 - `Super+Shift+Tab`: show open windows and close selected one
 - `Super+/`: shortcut sheet
@@ -48,6 +50,8 @@ Key starting points:
 - `Super+Control+Up`: increase screen brightness
 - `Super+Control+Down`: decrease screen brightness
 - `Super+Shift+a`: pavucontrol audio mixer
+- `Super+Shift+r`: Shairport TUI
+- `Super+Control+f`: toggle floating mode
 - `Super+Shift+o`: Bluetooth manager
 - `Super+Shift+d`: display settings
 - `Super+Shift+g`: toggle night color
@@ -61,9 +65,9 @@ The bar uses FontAwesome icons for CPU, memory, battery, brightness, volume, and
 
 ## Workspaces
 
-- Workspaces 1..5 are predefined with compact FontAwesome labels: `1 ` terminal, `2 ` browser, `3 ` files, `4 ` mail, and `5 ` tools.
-- `Super+1..5` switches to those named workspaces; `Super+Shift+1..5` moves the focused window there.
-- Workspaces 6..10 remain plain numeric overflow workspaces.
+- Workspaces 1..6 are predefined with compact FontAwesome labels: `1 ` terminal, `2 ` browser, `3 ` files, `4 ` mail, `5 ` tools, and `6 ` music.
+- `Super+1..6` switches to those named workspaces; `Super+Shift+1..6` moves the focused window there.
+- Workspaces 7..10 remain plain numeric overflow workspaces.
 - Apps are not automatically forced onto these workspaces; the labels are organizational hints only.
 
 ## Wallpaper And Theme
@@ -111,11 +115,12 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Output scale is intentionally `1.0` because the desktop GUI looked acceptable without scaling.
 - Terminal readability is handled in Foot with `font=Ubuntu Sans Mono:pixelsize=22`.
 - Foot uses a high-contrast teal beam cursor: `color=101418 9ee7df` and `beam-thickness=3px`.
-- Foot server mode is started by Sway; the terminal wrapper uses `footclient` and falls back to `foot`.
-- Keyboard repeat is slowed for the uConsole keyboard with `repeat_delay 850` and `repeat_rate 10`. Backspace double-delete was later found to happen only in Codex, not in the terminal, so Sway repeat was restored from the temporary disabled setting.
+- Foot server mode is disabled. Sway no longer starts `foot --server`; `~/.config/sway/terminal.sh` launches standalone `foot --term=foot`.
+- Foot uses `term=foot`, and `~/.config/sway/terminal.sh` exports `CODEX_TUI_DISABLE_KEYBOARD_ENHANCEMENT=1` before launching Foot to avoid duplicate key behavior in Codex.
+- Keyboard repeat is slowed for the uConsole keyboard with `repeat_delay 850` and `repeat_rate 10`. Backspace double-delete was isolated to Codex keyboard enhancement rather than global terminal repeat, so Sway repeat was restored from the temporary disabled setting and Codex enhancement is disabled in the terminal wrapper.
 - If duplicate key events happen outside Codex, diagnose hardware key bounce with `wev` under Sway. Optional packages available for deeper keyboard diagnostics/filtering include `evtest`, `evemu-tools`, `input-remapper`, and `interception-tools`.
 - Brightness uses `~/.config/sway/brightness.sh` with device `backlight@0` and one hardware step per press. The panel exposes only 9 levels, so percentage steps like `5%+` can be too small to work visibly. Shortcuts are `Super+Control+Up` and `Super+Control+Down`; hardware brightness keys and Waybar brightness scrolling call the same helper.
-- Volume up is capped at 100% with `wpctl set-volume -l 1.0 ... 5%+` for both the hardware volume key and Waybar volume scroll. Plain `wpctl set-volume ... 5%+` can over-amplify above 100%, which is not wanted on this device.
+- Volume is controlled through `~/.config/sway/volume.sh` for hardware volume keys and Waybar volume scroll/right-click. Volume up remains capped at 100% with `wpctl set-volume -l 1.0 ... 5%+`, and the helper shows notification feedback for volume and mic mute changes.
 - If brightness still cannot be changed from inside Sway, check permissions. Ubuntu's `brightnessctl` package installs `/usr/lib/udev/rules.d/90-brightnessctl.rules`, which grants backlight write access to group `video`; user `mew` was not in group `video` when checked. The likely fix is `sudo usermod -aG video mew`, then log out and back in. If needed after that, trigger udev with `sudo udevadm trigger --subsystem-match=backlight`.
 - Codex attempted `sudo usermod -aG video mew`, but sudo could not prompt for the password in the managed command environment. The user must run the brightness permission commands in a real terminal.
 - Waybar uses the selected Option B status glyph set from FontAwesome/Noto: CPU ``, memory ``, battery ``..`` plus charging `` and plugged ``, brightness ``, volume ``, muted volume ``, and notifications ``. The originally proposed `` muted glyph is not covered by the installed FontAwesome package, so the supported `` glyph is used. The power-menu icon was removed from the bar; use `Super+Shift+p`.
@@ -123,6 +128,11 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Waybar module blocks/pill backgrounds were removed for a more integrated bar. Modules are transparent; active and urgent workspaces use bottom underline accents instead of filled blocks. Right-side status spacing is tightened with Waybar `spacing=2`, module padding `0 5px`, and tray spacing `6`.
 - Waybar no longer shows the launcher button, Wi-Fi/network module, shortcut-help icon, or power-menu icon to reduce taskbar clutter. App launch remains `Super+Space` or `Super+d`, the shortcut sheet remains `Super+/`, network settings remain `Super+Shift+n`, and the power menu remains `Super+Shift+p`.
 - Waybar click actions: CPU opens `htop`; memory/RAM module opens `df -h` in a terminal for disk usage.
+- Waybar includes an adaptive `custom/media` playerctl status module between audio and notifications. It uses `` for playing, `` for paused, and `` for stopped/no active player. It shows bounded script-side track text while playing and for up to 10 minutes after active playback; after that paused/stopped states collapse to icon-only. Click toggles play/pause and right-click opens Shairport TUI.
+- Wofi run prompt is available at `Super+Shift+Space`; app launcher remains `Super+Space` and `Super+d`.
+- Scratchpad terminal is available at `Super+grave`. It launches a floating Foot terminal titled `sway-scratchpad-terminal` and toggles it through Sway scratchpad.
+- Floating mode toggle moved from `Super+Shift+Space` to `Super+Control+f` to leave `Super+Shift+Space` for the run prompt.
+- Shairport TUI is available at `Super+Shift+r`. It launches `/home/mew/bin/shairport-tui` in a fullscreen Foot terminal with title `shairport-tui` on the current workspace.
 - Sway Notification Center (`sway-notification-center` 0.9.0-1build2) is installed and integrated as the preferred notification daemon. Sway starts `swaync` if available and falls back to `mako`; `Super+n` and the Waybar bell open it. Sway reload now restarts `swaync` so CSS changes apply with `Super+Shift+c`. Its CSS is intentionally flat/integrated: outer notification rows are transparent, and each notification uses one subtle surface with a thin teal accent instead of nested boxes.
 - Wofi app launcher is enlarged for the 5 inch display: `width=88%`, `height=82%`, `font-size=18px`, and app icons `image_size=46`. Search is explicitly case-insensitive (`insensitive=true`) and uses predictable `matching=contains`. Wofi caching is enabled through `/home/mew/.cache/wofi-drun`, and `sort_order=default` keeps cached/frequent entries first. `allow_images=true` keeps app icons visible; this can make icon-theme loading visible when the launcher opens.
 - Waybar battery is dynamic: discharging uses level icons ``..``, charging uses bolt ``, plugged/not charging uses plug ``, unknown uses ``, and charging/plugged states are green while warning/critical colors apply only when not charging.
@@ -136,7 +146,7 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Wallpaper picker is available at `Super+Shift+w` and persists wallpaper choices by updating the Sway config.
 - Shortcut sheet `~/.config/sway/shortcuts.txt` has been cleaned up for spelling, wording, and consistent labels.
 - Shortcut sheet opens fullscreen with `Super+/`; Sway rule for title `sway-shortcuts` is `fullscreen enable`.
-- Workspace labels are predefined in `~/.config/sway/config` as `$ws1`..`$ws5`, and Waybar's persistent workspace list uses the same names.
+- Workspace labels are predefined in `~/.config/sway/config` as `$ws1`..`$ws6`, and Waybar's persistent workspace list uses the same names.
 - NetworkManager tray is started through `nm-applet --indicator` when available.
 - Removable-drive tray handling is started through `udiskie --tray --notify` when available.
 - Installed add-ons are now integrated: `pavucontrol`, `blueman`, `wdisplays`, `gammastep`, `cliphist`, `sway-notification-center`, `grimshot`, `udiskie`, `thunar`, `tumbler`, `mousepad`, `mpv`, `mpv-mpris`, `playerctl`, `evtest`, and `evemu-tools`.
@@ -144,7 +154,7 @@ Then increase font sizes in the Sway, Waybar, Wofi, and Foot config files instea
 - Screenshots now use `grimshot --notify`: `Print` saves the screen, `Shift+Print` saves a selected area, and `Super+Print` copies a selected area to the clipboard.
 - Media keys use `playerctl`; `mpv-mpris` is installed system-wide under `/etc/mpv/scripts/mpris.so`, so mpv can expose MPRIS controls to playerctl-compatible panels and keys.
 - `blueman-applet` starts automatically when available.
-- `gammastep` starts automatically using approximate Sydney coordinates in `~/.config/gammastep/config.ini`; use `Super+Shift+g` to toggle it.
+- `gammastep` remains installed and can be toggled manually with `Super+Shift+g`, but it no longer autostarts because the current display path reports no gamma adjustment support and otherwise spams the journal.
 - Clipboard history is stored by `wl-paste --watch cliphist store`; use `Super+c` to pick an item and copy it back to the clipboard.
 - The power menu uses the compact Wofi script at `~/.config/sway/power-menu.sh`; `wlogout` remains installed but is not used because the compact Wofi menu fits the uConsole display better.
 

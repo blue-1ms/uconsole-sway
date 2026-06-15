@@ -45,6 +45,7 @@ window#waybar {
 #battery,
 #backlight,
 #pulseaudio,
+#custom-media,
 #custom-notifications,
 #clock,
 #tray {
@@ -94,6 +95,19 @@ window#waybar {
 }
 
 #pulseaudio.muted {
+  color: #8b969c;
+}
+
+#custom-media {
+  color: #dfe6e9;
+}
+
+#custom-media.playing {
+  color: #9ee7df;
+}
+
+#custom-media.paused,
+#custom-media.stopped {
   color: #8b969c;
 }
 

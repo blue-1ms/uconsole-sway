@@ -3,8 +3,10 @@ Sway Shortcuts
 Daily keys
   Super+Enter           Open terminal
   Super+Shift+Enter     Open fullscreen terminal
+  Super+grave           Toggle scratchpad terminal
   Super+Space           Open app launcher
   Super+d               Open app launcher
+  Super+Shift+Space     Open run prompt
   Super+Tab             Show open windows and switch to one
   Super+Shift+Tab       Show open windows and choose one to close
   Super+/               Show this shortcut sheet
@@ -27,6 +29,7 @@ Apps and settings
   Super+Shift+s         Open settings
   Super+Shift+n         Open network connections
   Super+Shift+a         Open audio mixer
+  Super+Shift+r         Open Shairport TUI
   Super+Shift+o         Open Bluetooth manager
   Super+Shift+d         Open display settings
   Super+Shift+g         Toggle night color
@@ -53,7 +56,8 @@ Workspaces
   Super+3               Files workspace
   Super+4               Mail workspace
   Super+5               Tools workspace
-  Super+6..0            Switch to workspace 6..10
+  Super+6               Music workspace
+  Super+7..0            Switch to workspace 7..10
   Super+Shift+1..0      Move window to matching workspace
   Super+Control+Tab     Toggle previous workspace
 
@@ -64,7 +68,7 @@ Layout
   Super+w               Use tabbed layout
   Super+e               Toggle split layout
   Super+f               Toggle fullscreen
-  Super+Shift+Space     Toggle floating mode
+  Super+Control+f       Toggle floating mode
   Super+Control+Space   Focus between tiled and floating windows
   Super+a               Focus parent container
 
