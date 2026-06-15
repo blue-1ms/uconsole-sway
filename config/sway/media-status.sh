@@ -8,7 +8,7 @@ if ! command -v playerctl >/dev/null 2>&1; then
 fi
 
 status="$(playerctl status 2>/dev/null || true)"
-max_chars="${MEDIA_STATUS_MAX_CHARS:-28}"
+max_chars="${MEDIA_STATUS_MAX_CHARS:-44}"
 stale_after="${MEDIA_STATUS_STALE_AFTER:-600}"
 state_dir="${MEDIA_STATUS_STATE_DIR:-${XDG_RUNTIME_DIR:-$HOME/.cache}/sway}"
 last_playing_file="$state_dir/media-last-playing"
@@ -47,15 +47,29 @@ case "$status" in
         ;;
 esac
 
+artist=""
+title=""
 track=""
+tooltip_track=""
 if [ "$show_track" -eq 1 ]; then
-    track="$(playerctl metadata --format '{{artist}} - {{title}}' 2>/dev/null || true)"
-    track="$(printf '%s\n' "$track" | sed 's/^ - //; s/ - $//')"
+    artist="$(playerctl metadata artist 2>/dev/null | sed -n '1p' || true)"
+    title="$(playerctl metadata title 2>/dev/null | sed -n '1p' || true)"
+
+    if [ -n "$title" ] && [ -n "$artist" ]; then
+        track="$artist - $title"
+        tooltip_track="$track"
+    elif [ -n "$title" ]; then
+        track="$title"
+        tooltip_track="$title"
+    elif [ -n "$artist" ]; then
+        track="$artist"
+        tooltip_track="$artist"
+    fi
 fi
 
 if [ -n "$track" ]; then
     text="$icon $track"
-    tooltip="$status: $track"
+    tooltip="$status: ${tooltip_track:-$track}"
 else
     text="$icon"
     tooltip="$status"

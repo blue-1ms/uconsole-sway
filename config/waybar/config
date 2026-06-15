@@ -18,7 +18,6 @@
     "backlight",
     "pulseaudio",
     "custom/media",
-    "custom/notifications",
     "clock",
     "tray"
   ],
@@ -100,13 +99,6 @@
     "on-click": "playerctl play-pause",
     "on-click-right": "/home/mew/.config/sway/terminal.sh --fullscreen --title=shairport-tui /home/mew/bin/shairport-tui",
     "tooltip": true
-  },
-  "custom/notifications": {
-    "format": "",
-    "on-click": "/home/mew/.config/sway/notifications.sh",
-    "on-click-right": "swaync-client -d -sw",
-    "tooltip": true,
-    "tooltip-format": "Notifications: Super+n"
   },
   "clock": {
     "interval": 30,

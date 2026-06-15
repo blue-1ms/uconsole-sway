@@ -46,7 +46,6 @@ window#waybar {
 #backlight,
 #pulseaudio,
 #custom-media,
-#custom-notifications,
 #clock,
 #tray {
   padding: 0 5px;
@@ -73,11 +72,6 @@ window#waybar {
 #cpu.critical,
 #memory.critical {
   color: #ff6b6b;
-}
-
-#custom-notifications {
-  color: #9ee7df;
-  font-size: 20px;
 }
 
 #battery.charging,
